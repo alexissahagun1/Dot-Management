@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { services, site } from "@/lib/content";
 
 export const SITE_ORIGIN = "https://dotsportsmanagement.com";
-export const CANONICAL_URL = `${SITE_ORIGIN}/`;
+export const CANONICAL_URL = SITE_ORIGIN;
 export const OPEN_GRAPH_IMAGE_URL = `${SITE_ORIGIN}/opengraph-image.jpg`;
 
 export const isIndexableDeployment =
@@ -67,12 +67,12 @@ export function buildPageMetadata(page: SeoPage): Metadata {
 }
 
 const schemaIds = {
-  organization: `${CANONICAL_URL}#organization`,
-  website: `${CANONICAL_URL}#website`,
-  person: `${CANONICAL_URL}#raul-guzman`,
-  contact: `${CANONICAL_URL}#contact`,
-  webpage: `${CANONICAL_URL}#webpage`,
-  services: `${CANONICAL_URL}#services`,
+  organization: `${SITE_ORIGIN}/#organization`,
+  website: `${SITE_ORIGIN}/#website`,
+  person: `${SITE_ORIGIN}/#raul-guzman`,
+  contact: `${SITE_ORIGIN}/#contact`,
+  webpage: `${SITE_ORIGIN}/#webpage`,
+  services: `${SITE_ORIGIN}/#services`,
 } as const;
 
 function reference(id: string) {
@@ -81,7 +81,7 @@ function reference(id: string) {
 
 function serviceId(title: string) {
   const slug = title.toLowerCase().replaceAll(" ", "-");
-  return `${CANONICAL_URL}#service-${slug}`;
+  return `${SITE_ORIGIN}/#service-${slug}`;
 }
 
 const serviceNodes = services.map((service) => ({

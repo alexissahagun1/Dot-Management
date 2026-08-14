@@ -5,7 +5,7 @@ const origin = (process.env.ORIGIN ?? "http://127.0.0.1:3000").replace(
   "",
 );
 const expectIndex = process.env.EXPECT_INDEX === "true";
-const canonical = "https://dotsportsmanagement.com/";
+const canonical = "https://dotsportsmanagement.com";
 
 const pages = {
   "/": {
@@ -128,12 +128,12 @@ function assertJsonLd(homeHtml, routeHtml) {
   assert.equal(nodes.size, graph.length, "Every JSON-LD @id should be unique");
 
   const ids = {
-    organization: `${canonical}#organization`,
-    website: `${canonical}#website`,
-    person: `${canonical}#raul-guzman`,
-    contact: `${canonical}#contact`,
-    webpage: `${canonical}#webpage`,
-    services: `${canonical}#services`,
+    organization: `${canonical}/#organization`,
+    website: `${canonical}/#website`,
+    person: `${canonical}/#raul-guzman`,
+    contact: `${canonical}/#contact`,
+    webpage: `${canonical}/#webpage`,
+    services: `${canonical}/#services`,
   };
   const organization = nodes.get(ids.organization);
   const website = nodes.get(ids.website);

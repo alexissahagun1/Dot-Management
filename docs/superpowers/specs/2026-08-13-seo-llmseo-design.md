@@ -49,34 +49,36 @@ Metadata, JSON-LD, robots, sitemap, social URLs, and LLM text files must use thi
 
 Because `/` already renders the complete About, Services, and Contact content, the site is treated as one canonical long-form landing page. `/about`, `/services`, and `/contact` remain usable direct-entry routes but canonicalize to `/`. They are omitted from the sitemap to avoid sending contradictory duplication signals without changing the UI.
 
+Next.js serializes the root canonical as the bare HTTPS origin, without a trailing slash. Canonical tags, Open Graph URLs, and the sitemap therefore use `https://dotsportsmanagement.com` byte-for-byte; schema fragment IDs retain the conventional `https://dotsportsmanagement.com/#...` form.
+
 ## Page Metadata
 
 ### Home `/`
 
 - Title: `Motorsport Driver Management | DOT Management`
 - Description: `DOT Management provides international motorsport driver management, coaching and career development from karting through professional racing.`
-- Canonical: `https://dotsportsmanagement.com/`
+- Canonical: `https://dotsportsmanagement.com`
 - Primary topic: motorsport driver management
 
 ### About `/about`
 
 - Title: `About DOT Management & Raul Guzman`
 - Description: `Learn about DOT Management and founder Raul Guzman, combining professional racing experience with strategic driver development and career support.`
-- Canonical: `https://dotsportsmanagement.com/`
+- Canonical: `https://dotsportsmanagement.com`
 - Primary topics: DOT Management, Raul Guzman, driver development
 
 ### Services `/services`
 
 - Title: `Driver Management Services | DOT Management`
 - Description: `Explore DOT Management services: driver management, coaching, performance partners, brand and commercial guidance, and on-track support.`
-- Canonical: `https://dotsportsmanagement.com/`
+- Canonical: `https://dotsportsmanagement.com`
 - Primary topics: driver management services, driver coaching, motorsport career support
 
 ### Contact `/contact`
 
 - Title: `Contact DOT Management | Driver Representation`
 - Description: `Contact DOT Management to discuss driver representation, coaching, career development, commercial guidance or on-track motorsport support.`
-- Canonical: `https://dotsportsmanagement.com/`
+- Canonical: `https://dotsportsmanagement.com`
 - Primary topic: driver representation inquiry
 
 ## Social Metadata
@@ -86,7 +88,7 @@ Each route will reuse its SEO title and description for social metadata. All rou
 - `openGraph.type = website`
 - `openGraph.siteName = DOT Management`
 - `openGraph.locale = en_GB`
-- `openGraph.url = https://dotsportsmanagement.com/` to match the canonical
+- `openGraph.url = https://dotsportsmanagement.com` to match the canonical
 - `twitter.card = summary_large_image`
 
 ## Structured Data
@@ -175,7 +177,7 @@ The general allow rule continues to cover Googlebot, Bingbot, and other search c
 
 ## Sitemap
 
-Keep a single sitemap with only `https://dotsportsmanagement.com/`. Do not list direct routes that canonicalize to the homepage. Do not emit misleading build-time `lastModified` dates or unused routes.
+Keep a single sitemap with only `https://dotsportsmanagement.com`. Do not list direct routes that canonicalize to the homepage. Do not emit misleading build-time `lastModified` dates or unused routes.
 
 ## LLM Discovery Files
 

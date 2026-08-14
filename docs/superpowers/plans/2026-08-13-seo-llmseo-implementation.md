@@ -30,7 +30,7 @@
 - [ ] Create a dependency-free Node script that accepts `ORIGIN` (default `http://127.0.0.1:3000`) and `EXPECT_INDEX` (default `false`).
 - [ ] Fetch `/`, `/about`, `/services`, `/contact`, `/robots.txt`, `/sitemap.xml`, `/llms.txt`, and `/llms-full.txt`.
 - [ ] Assert HTTP 200 and the correct MIME family for HTML, plain text, and XML resources.
-- [ ] For every HTML route, assert the exact title and description below, exactly one canonical pointing to `https://dotsportsmanagement.com/`, matching `og:url`, exact Open Graph/Twitter title and description, `twitter:card=summary_large_image`, `<html lang="en">`, exactly one `<h1>`, and the expected robots indexing policy.
+- [ ] For every HTML route, assert the exact title and description below, exactly one canonical pointing to `https://dotsportsmanagement.com`, matching `og:url`, exact Open Graph/Twitter title and description, `twitter:card=summary_large_image`, `<html lang="en">`, exactly one `<h1>`, and the expected robots indexing policy.
 
 ```js
 const pages = {
@@ -59,7 +59,7 @@ const pages = {
 
 - [ ] Parse the homepage JSON-LD and assert a connected `@graph`: stable Organization, WebSite, Person, ContactPoint, WebPage, ItemList, and five Service IDs; verify `founder`, `worksFor`, `contactPoint`, `isPartOf`, `about`, `mainEntity`, and every service `provider` reference.
 - [ ] Assert the three duplicate route pages do not emit JSON-LD.
-- [ ] Assert the sitemap contains exactly one `<loc>https://dotsportsmanagement.com/</loc>`.
+- [ ] Assert the sitemap contains exactly one `<loc>https://dotsportsmanagement.com</loc>`.
 - [ ] Assert `llms.txt` and `llms-full.txt` contain the canonical origin, official email, the five visible service names, and no use of `leading`.
 - [ ] Add `"seo:check": "node scripts/seo-check.mjs"` to `package.json`.
 - [ ] Start the current app with `npm run dev -- --hostname 127.0.0.1 --port 3000` and run `npm run seo:check`; confirm it fails on the first old title/metadata assertion before implementation.
