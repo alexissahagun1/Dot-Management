@@ -39,6 +39,8 @@ yarn-error.log*
 
 # local design tooling
 .impeccable
+/.expect/
+/.firecrawl/
 
 # typescript
 *.tsbuildinfo
