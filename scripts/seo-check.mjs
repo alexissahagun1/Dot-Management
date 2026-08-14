@@ -214,6 +214,27 @@ function assertRobotsFile(text) {
   assert.doesNotMatch(text, /^Host:/im);
 }
 
+async function assertCanonicalHostRedirects() {
+  const insecure = await fetch("http://dotsportsmanagement.com/", {
+    redirect: "manual",
+  });
+  assert.equal(insecure.status, 308, "HTTP should redirect permanently to HTTPS");
+  const insecureLocation = new URL(insecure.headers.get("location"));
+  assert.equal(insecureLocation.protocol, "https:");
+  assert.equal(insecureLocation.hostname, "dotsportsmanagement.com");
+
+  const www = await fetch(
+    "https://www.dotsportsmanagement.com/services?source=seo-check",
+    { redirect: "manual" },
+  );
+  assert.equal(www.status, 308, "www should redirect permanently to the apex host");
+  assert.equal(
+    www.headers.get("location"),
+    "https://dotsportsmanagement.com/services?source=seo-check",
+    "www redirect should preserve path and query",
+  );
+}
+
 const htmlEntries = await Promise.all(
   Object.keys(pages).map(async (path) => [path, await get(path, /text\/html/i)]),
 );
@@ -280,6 +301,10 @@ for (const [name, text] of [
   for (const serviceName of serviceNames) {
     assert.ok(text.includes(serviceName), `${name} should list ${serviceName}`);
   }
+}
+
+if (origin === canonical) {
+  await assertCanonicalHostRedirects();
 }
 
 console.log(`SEO checks passed for ${origin} (index=${expectIndex}).`);

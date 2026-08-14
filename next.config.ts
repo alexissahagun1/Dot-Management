@@ -6,6 +6,16 @@ const nextConfig: NextConfig = {
     root: path.join(__dirname),
   },
   devIndicators: false,
+  redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.dotsportsmanagement.com" }],
+        destination: "https://dotsportsmanagement.com/:path*",
+        permanent: true,
+      },
+    ];
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     qualities: [50, 60, 75, 80],
