@@ -6,8 +6,7 @@ export const site = {
     href: "https://instagram.com/dotmanagement_",
   },
   description:
-    "Driver management. Founded 2020. We take the seat — karting to GT3.",
-  base: "Bologna · Mexico",
+    "Drivers Of Tomorrow. Driver management from karting to the highest levels of motorsport.",
 } as const;
 
 export const nav = [
@@ -18,61 +17,24 @@ export const nav = [
 ] as const;
 
 export const home = {
-  h1: ["Driver", "management."] as const,
+  h1: "Drivers Of Tomorrow",
   quote: "Timing is everything.",
-  cta: "Send a briefing →",
-  proof: "Founded 2020 · We take the seat.",
-  photoAlt: "Raúl Guzmán, Formula Renault 85, Monaco",
+  cta: "Contact us →",
+  photoAlt: "Karting — checkered flag",
 } as const;
 
 export const house = {
-  h2: "The house.",
-  lead: "Bologna · Mexico.",
-  body: "A driver-management house for careers that start in karting and have to arrive in GT3 with the seat still making sense. Italian F4, third, 2016 — the house starts from that kind of year, not from a roster. Contract, calendar, coaching, partners, commercial — and the radio when the lights go out.",
-  path: "Karting → F4 → Formula Renault → Super Trofeo → GT3",
-  stills: [
-    {
-      src: "/images/nav-kart.jpg",
-      alt: "Karting, checkered flag",
-      cap: "Karting",
-    },
-    {
-      src: "/images/home-monaco.jpg",
-      alt: "Formula Renault, Monaco",
-      cap: "Formula Renault · Monaco",
-    },
-    {
-      src: "/images/nav-gt3.jpg",
-      alt: "Lamborghini Huracán GT3",
-      cap: "Huracán GT3",
-    },
+  h2: "About DOT",
+  raul: "About Raul",
+  dot: [
+    "DOT Management is a leading driver management company based in Europe with experience ranging from karting to the highest levels of motorsport, supported by a strong international network. Founded and led by Raul Guzman, DOT works together with a team of experienced advisors, including key figures from Formula 1, the Road to F1 championships, and other major international racing series including sports car racing. Together, they provide guidance, strategic support, and performance development to help talented drivers build and progress their careers.",
+    "DOT's approach is focused on identifying every possible opportunity and ensuring that no aspect of a driver's development is overlooked. From young talents taking their first steps in motorsport to established professionals, the goal is to maximise both performance and career potential at every stage.",
+    "The team combines extensive experience from within motorsport with expertise from outside the industry, allowing DOT to offer a broader range of services to its drivers. This includes career development, legal advisory, networking, and driver coaching, providing a complete approach to driver management and development.",
   ],
-} as const;
-
-export const about = {
-  h1: "Raúl Guzmán Marchina",
-  bio: "Mexican racing driver, based in Bologna. Karting into Italian F4 — third in 2016 with DR Formula — then Formula Renault, Formula Regional, Lamborghini Super Trofeo Europe and Italian GT. Lamborghini Squadra Corse Driver Academy and instructor from 2020, the year he founded DOT Management.",
-  photoAlt: "Raúl Guzmán in the paddock, Barcelona 2019",
-  film: [
-    {
-      src: "/images/about-f4.jpg",
-      alt: "Raúl Guzmán, Italian F4 — helmet and pole-position wheel",
-      cap: "Italian F4 · 2016",
-    },
-    {
-      src: "/images/about-track.jpg",
-      alt: "Raúl Guzmán with a Lamborghini Huracán on track",
-      cap: "Squadra Corse · 2020",
-    },
-  ],
-  career: [
-    { cat: "Karting", where: "SKUSA" },
-    { cat: "Italian F4", where: "3rd · 2016" },
-    { cat: "Formula Renault", where: "Eurocup · 2017–18" },
-    { cat: "Formula Regional", where: "6th · 2019" },
-    { cat: "Super Trofeo Europe", where: "Target · 2020" },
-    { cat: "Squadra Corse", where: "Academy · 2020" },
-    { cat: "Italian GT", where: "Imperiale · 2022–23" },
+  raulBody: [
+    "Raul Guzman has been working as a professional driver and manager in Europe for the last 12 years. DOT Management was founded by Raul in 2020 alongside his driving duties to support and develop drivers through the motorsport ladder.",
+    "Raul became a driver from a young age, experiencing all the different aspects the sport involves, from driving great amount of cars, fighting for championships through international karting, the formula ladder, GT cars, prototypes and working for Lamborghini for several years. This has given the right experience in the commercial and performance side of the sport. DOT has the motivation and focus to transmit experience and performance in all the aspects to his drivers all the way from karting up to the very top of motorsport.",
+    "Working alongside a strong network of advisors and strategic partners, Raul leads DOT with a clear objective: to identify, develop and create new opportunities for the most talented individuals in sport.",
   ],
 } as const;
 
@@ -80,33 +42,32 @@ export const services = [
   {
     n: "01",
     title: "Driver Management",
-    body: "Seat, contract, calendar. Which championship, which team, which year — and when to wait. The decisions that keep a driver in the right car at the right time.",
+    body: "DOT is built around providing drivers with the support, structure, and connections they need. Racing team contract negotiations to career planning, traveling logistics, access to trusted sports professionals, and an international partners network. The driver can focus on performance while we take care of all the elements surrounding their career.",
   },
   {
     n: "02",
     title: "Driver Coaching",
-    body: "On-track and simulator. Data, video, the line and the brake point. The call on the radio that wins the session.",
+    body: "Focused on maximizing driver performance through experience and data. Raul, or a trusted driver coach within the DOT partners, works closely with the driver throughout the event, providing support through telemetry analysis, trackside coaching, racecraft, and overall performance development.",
   },
   {
     n: "03",
     title: "Performance Partners",
-    body: "Engineer, physio, mental performance. Briefed, and in the same loop as the driver.",
+    body: "Ensuring a complete package we have specialists across different countries, giving our drivers access to the right people wherever their careers take them. This includes training centers, physiotherapists, sports psychologists, and driver academies, providing support both on and off the track. We help drivers build the physical, mental, and technical tools needed to perform at their best.",
   },
   {
     n: "04",
-    title: "Branding & Commercial",
-    body: "Image, partners, and the long commercial path of a career — so the seat still exists next season.",
+    title: "Brand and Commercial",
+    body: "Providing guidance and support across the commercial and brand side of a driver's career, helping with partnerships, events, hospitality, and commercial opportunities. From planning and coordination to on site support, we help drivers and partners make the most of every opportunity.",
   },
   {
     n: "05",
-    title: "On-Track Support",
-    body: "Paddock, pit and radio. We are there when the session starts — bottle, data, and the call from the wall.",
+    title: "On Track Support",
+    body: "A DOT member will accompany the driver during tests, race weekends, and selected events, providing hands on support for personal, driving, and performance needs. Our presence at the track ensures the driver has the right support throughout the event, allowing them to stay focused on performance.",
   },
 ] as const;
 
 export const contact = {
-  h1: "Send a briefing.",
-  note: "A name, a series, and where the seat needs to go. We read every one.",
-  reply: "Reply from Bologna. Usually inside a day.",
+  h1: "Contact us.",
+  reply: "Usually inside a day.",
   photoAlt: "On-track support in the pit lane",
 } as const;

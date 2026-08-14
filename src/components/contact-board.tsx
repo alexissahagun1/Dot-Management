@@ -1,6 +1,7 @@
-import Image from "next/image";
+import { Photo } from "@/components/photo";
 import { ContactForm } from "@/components/contact-form";
 import { contact, site } from "@/lib/content";
+import { photos } from "@/lib/photos";
 
 export function ContactBoard({
   titleAs: Title = "h1",
@@ -13,7 +14,6 @@ export function ContactBoard({
     <>
       <div className="brief">
         <Title>{contact.h1}</Title>
-        <p className="note">{contact.note}</p>
         <ContactForm />
         <p className="reply">{contact.reply}</p>
       </div>
@@ -39,12 +39,10 @@ export function ContactBoard({
       ) : (
         <div className="pane">{body}</div>
       )}
-      <Image
+      <Photo
         className="shot"
-        src="/images/services-trackside.jpg"
+        src={photos.pitBottle}
         alt={contact.photoAlt}
-        width={1600}
-        height={900}
         sizes="(max-width: 760px) 100vw, 50vw"
       />
     </section>

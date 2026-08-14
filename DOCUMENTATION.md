@@ -17,12 +17,12 @@ Site copy is English. Internal notes can be Spanish.
 ## Space
 
 - Shared `--pad-x` for logo, type, and hamburger — one left axis.
-- Home stack: H1 → italic quote → **Send a briefing →** (red hairline, links to Contact) → proof (`Founded 2020 · We take the seat.`). No Raúl on Home. No sector `01`.
+- Home stack: H1 **Drivers Of Tomorrow** (smaller than the old hero) → italic quote **Timing is everything.** → **Contact us →**. No proof line. Hero is karting (foto 1).
 - Lockup is a link to Home on every page.
-- Home desktop veil is left + bottom only. No top darkening — black D/T sit on the Monaco buildings.
-- Contact is a left column; the right half of desktop is empty carbon. Instagram/email pin to the bottom.
-- About and Services hairlines run edge-to-edge of the column; type stays on `--pad-x`.
-- About list is category left / series right. Numbers only on Services `01–05`, where they mark a real sequence.
+- Home desktop veil is left + bottom only.
+- Contact is a left column; Instagram/email pin to the bottom. Title is **Contact us.** No briefing note.
+- Numbers only on Services `01–05`, where they mark a real sequence.
+- Rhythm is Billboard A again: split type + photo, never a text wall or a photo dump. About DOT sits on carbon with three stills. About Raul sits on paper with a sticky portrait and a two-frame film. Track video is one full-bleed chapter. Remaining stills are a horizontal snap lane (Lando-style pin).
 
 ## Logo
 
@@ -30,7 +30,7 @@ Pixel-identical PNG. Never typeset “DOT”. Two files: `logo.png` (black D/T) 
 
 ## Photos
 
-Home: Monaco Renault #85. Overlay: Monaco + kart + GT3. About: Barcelona paddock. Services: GT3 desktop; De la Torre strip on mobile On-Track.
+Home: karting, checkered flag. Overlay: Monaco + GT3 + Tecnica. Archive: track loop + 28 stills. Services: session replay. Contact: onboard loop.
 
 ## Next
 
@@ -68,4 +68,31 @@ npm install
 cp .env.example .env.local
 npm run dev
 ```
+
+## Contact / Resend (2026-08-13)
+
+Briefings go through the server action in `src/app/contact/actions.ts` (`resend` package). Secrets live only in `.env.local` (gitignored) and Vercel env — never in git.
+
+| Var | Role |
+|---|---|
+| `RESEND_API_KEY` | Server-only send key (never in source) |
+| `RESEND_FROM` | Default `onboarding@resend.dev` |
+
+Every briefing goes **to** `info@dotsportsmanagement.com` (`site.email`) **from** `onboarding@resend.dev`, matching Resend’s first-email example. After verifying `dotsportsmanagement.com`, set `RESEND_FROM` to `DOT Management <info@dotsportsmanagement.com>`.
+
+Vercel (`dot-management`): `RESEND_API_KEY` is on Production/Preview (sensitive) and Development; `RESEND_FROM` is on all three. Production deploy `dpl_AzWM45UJVpVQ26j3mh26ya5KodAw` (2026-08-13) is live at `https://dotsportsmanagement.com`.
+
+## Copy pass (2026-08-13)
+
+Client rewrite. Home: kart hero, **Drivers Of Tomorrow**, **Timing is everything.**, **Contact us →**. About DOT is the original house split (copy + three stills). About Raul is the original about split (copy + sticky paddock + two-frame film). Track video is one full-bleed chapter. Remaining stills live in a horizontal snap lane. Services keeps the pit index + replay. Contact keeps the form + pit still. The sideways Super Trofeo replay does not sit on Contact.
+
+## Archive (2026-08-13)
+
+WeTransfer `wetransfer_fotos-videos_2026-08-12_1957`: **28 JPEG + 3 videos**. All of it is on the site. Stills live in `public/images/` (max 1920, mozjpeg). Videos in `public/video/` as muted looping H.264 (`track.mp4`, `replay.mp4`, `onboard.mp4`). Re-import with `node scripts/import-media.mjs`. `prefers-reduced-motion` pauses the loops.
+
+## Mobile (2026-08-13)
+
+Phone was a cropped desktop: landscape stills in `100dvh` cover boxes, `next/image` at `q=60` with `sizes="42vw"` on an 844px-tall lane, and a full-viewport `overflow-x` snap scroller that ate vertical scroll.
+
+On `max-width: 760px` stills keep native aspect instead of `28–38dvh` slices. The archive is a short filmstrip (`~62vw` tall, native width, `object-fit: contain`) with `overscroll-behavior-x: contain` and `scroll-snap-type: x proximity`. Photos default to `q=75`. Home lockup is ink on the dark kart. Chrome gets a carbon/paper fade so copy does not run under the logo. Menu jumps use `inline: nearest` and unlock `overflow` before `scrollIntoView`. Coarse pointers skip `scroll-behavior: smooth`.
 

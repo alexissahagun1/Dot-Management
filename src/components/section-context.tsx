@@ -1,21 +1,31 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 
-export type Board = "home" | "house" | "about" | "film" | "services" | "contact";
+export type Board =
+  | "home"
+  | "house"
+  | "about"
+  | "film"
+  | "reel"
+  | "lane"
+  | "services"
+  | "contact";
 
 const hrefs: Record<Board, string> = {
   home: "/",
-  house: "/",
+  house: "/about",
   about: "/about",
   film: "/about",
+  reel: "/about",
+  lane: "/about",
   services: "/services",
   contact: "/contact",
 };
 
 export function pathBoard(pathname: string): Board {
-  if (pathname === "/about") return "about";
+  if (pathname === "/about") return "house";
   if (pathname === "/services") return "services";
   if (pathname === "/contact") return "contact";
   return "home";
@@ -33,18 +43,20 @@ const SectionCtx = createContext<{
 
 export function SectionProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const [scrolled, setBoard] = useState<Board>("home");
+  const [section, setSection] = useState(() => ({
+    pathname,
+    board: pathBoard(pathname),
+  }));
   const board =
-    pathname === "/" || pathname === "/about" ? scrolled : pathBoard(pathname);
+    section.pathname === pathname ? section.board : pathBoard(pathname);
+  const setBoard = useCallback(
+    (next: Board) => setSection({ pathname, board: next }),
+    [pathname],
+  );
   const value = useMemo(
     () => ({ board, setBoard, currentHref: hrefs[board] }),
-    [board],
+    [board, setBoard],
   );
-
-  useEffect(() => {
-    if (pathname === "/") setBoard("home");
-    else if (pathname === "/about") setBoard("about");
-  }, [pathname]);
 
   return <SectionCtx.Provider value={value}>{children}</SectionCtx.Provider>;
 }

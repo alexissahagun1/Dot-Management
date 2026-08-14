@@ -1,8 +1,9 @@
-import Image from "next/image";
-import { about } from "@/lib/content";
+import { Photo } from "@/components/photo";
+import { house } from "@/lib/content";
+import { raulFilm, raulShot } from "@/lib/photos";
 
 export function AboutBoard({
-  titleAs: Title = "h1",
+  titleAs: Title = "h2",
   priority = false,
   skip = false,
 }: {
@@ -13,38 +14,28 @@ export function AboutBoard({
   const Copy = skip ? "main" : "div";
 
   return (
-    <section className="a-about" data-board="about" aria-label="About">
+    <section className="a-about" data-board="about" aria-label="About Raul">
       <Copy className="copy" id={skip ? "content" : undefined}>
-        <div>
-          <Title>{about.h1}</Title>
-          <p className="bio">{about.bio}</p>
-        </div>
-        <ol>
-          {about.career.map((row) => (
-            <li key={row.cat}>
-              <span className="cat">{row.cat}</span>
-              <span className="where">{row.where}</span>
-            </li>
-          ))}
-        </ol>
+        <Title>{house.raul}</Title>
+        {house.raulBody.map((p) => (
+          <p className="bio" key={p.slice(0, 24)}>
+            {p}
+          </p>
+        ))}
       </Copy>
-      <Image
+      <Photo
         className="full"
-        src="/images/about-paddock.jpg"
-        alt={about.photoAlt}
-        width={1600}
-        height={2400}
+        src={raulShot.src}
+        alt={raulShot.alt}
         priority={priority}
         sizes="(max-width: 760px) 100vw, 56vw"
       />
       <div className="film" data-board="film">
-        {about.film.map((shot) => (
-          <figure key={shot.src}>
-            <Image
+        {raulFilm.map((shot) => (
+          <figure key={shot.cap}>
+            <Photo
               src={shot.src}
               alt={shot.alt}
-              width={1600}
-              height={1066}
               sizes="(max-width: 760px) 100vw, 50vw"
             />
             <figcaption>{shot.cap}</figcaption>

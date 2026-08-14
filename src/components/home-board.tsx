@@ -1,7 +1,8 @@
-import Image from "next/image";
+import { Photo } from "@/components/photo";
 import { HomeCta } from "@/components/home-cta";
 import { ScrollCue } from "@/components/scroll-cue";
 import { home } from "@/lib/content";
+import { photos } from "@/lib/photos";
 
 export function HomeBoard({
   titleAs: Title = "h1",
@@ -12,24 +13,20 @@ export function HomeBoard({
 }) {
   return (
     <section className="a-home" data-board="home" aria-label="Home">
-      <Image
+      <Photo
         className="bg"
-        src="/images/home-monaco.jpg"
+        src={photos.kartFinish}
         alt={home.photoAlt}
-        width={2400}
-        height={1600}
         priority={priority}
-        sizes="100vw"
+        fetchPriority={priority ? "high" : "auto"}
+        quality={75}
+        sizes="(max-width: 760px) 180vw, 100vw"
       />
       <div className="veil" aria-hidden="true" />
       <div className="copy">
-        <Title>
-          <span>{home.h1[0]}</span>
-          <span>{home.h1[1]}</span>
-        </Title>
+        <Title>{home.h1}</Title>
         <p className="quote">{home.quote}</p>
         <HomeCta />
-        <p className="proof">{home.proof}</p>
       </div>
       <ScrollCue />
     </section>

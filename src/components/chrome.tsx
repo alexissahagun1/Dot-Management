@@ -4,9 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
+import { Photo } from "@/components/photo";
 import { pathBoard, useSection, type Board } from "@/components/section-context";
 import { useChromeBoard } from "@/components/site-scroll";
 import { nav, site } from "@/lib/content";
+import { photos } from "@/lib/photos";
 
 function Lockup({ ink }: { ink: boolean }) {
   return (
@@ -17,6 +19,8 @@ function Lockup({ ink }: { ink: boolean }) {
       height={421}
       className="lockup"
       priority
+      sizes="170px"
+      quality={75}
     />
   );
 }
@@ -46,25 +50,26 @@ export function Chrome() {
     setShown(false);
   }
 
-  const onCarbon =
-    board === "services" ||
-    board === "contact" ||
-    board === "house" ||
-    board === "film" ||
-    (pathname !== "/" && pathname !== "/about");
-  const onAbout = board === "about";
-  const lockupInk = shown ? false : onCarbon;
+  const onPaper = board === "about";
+  const lockupInk = shown ? false : !onPaper;
 
   function scrollToBoard(name: Board) {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     document.querySelector(`[data-board="${name}"]`)?.scrollIntoView({
       behavior: reduce ? "auto" : "smooth",
+      block: "start",
+      inline: "nearest",
     });
   }
 
   function goHome() {
     setOpen(false);
-    if (pathname === "/") scrollToBoard("home");
+    setShown(false);
+    document.body.classList.remove("menu-open");
+    document.documentElement.classList.remove("menu-open");
+    if (pathname === "/") {
+      requestAnimationFrame(() => scrollToBoard("home"));
+    }
   }
 
   useEffect(() => {
@@ -77,25 +82,21 @@ export function Chrome() {
       page?.removeAttribute("inert");
     }
     document.documentElement.dataset.surface =
-      onAbout && !shown ? "paper" : "carbon";
+      onPaper && !shown ? "paper" : "carbon";
     return () => {
       document.body.classList.remove("menu-open");
       document.documentElement.classList.remove("menu-open");
       page?.removeAttribute("inert");
       delete document.documentElement.dataset.surface;
     };
-  }, [shown, onAbout]);
+  }, [shown, onPaper]);
 
   useEffect(() => {
     if (open) firstLink.current?.focus();
   }, [open]);
 
   useEffect(() => {
-    if (open) {
-      setShown(true);
-      return;
-    }
-    if (!shown) return;
+    if (open || !shown) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const t = window.setTimeout(() => setShown(false), reduce ? 0 : 180);
     return () => window.clearTimeout(t);
@@ -133,7 +134,7 @@ export function Chrome() {
 
   return (
     <>
-      <header className={onAbout && !shown ? "chrome is-paper" : "chrome"}>
+      <header className={onPaper && !shown ? "chrome is-paper" : "chrome"}>
         <Link className="brand" href="/" transitionTypes={["nav-back"]} onClick={goHome}>
           {shown ? (
             <picture>
@@ -155,7 +156,7 @@ export function Chrome() {
           className={[
             "ham",
             open ? "is-open" : "",
-            onAbout && !shown ? "is-dark" : "",
+            onPaper && !shown ? "is-dark" : "",
           ]
             .filter(Boolean)
             .join(" ")}
@@ -190,27 +191,9 @@ export function Chrome() {
             Menu
           </h2>
           <div className="a-stills" aria-hidden="true">
-            <Image
-              src="/images/home-monaco.jpg"
-              alt=""
-              width={2000}
-              height={1333}
-              sizes="38vw"
-            />
-            <Image
-              src="/images/nav-kart.jpg"
-              alt=""
-              width={2000}
-              height={1333}
-              sizes="38vw"
-            />
-            <Image
-              src="/images/nav-gt3.jpg"
-              alt=""
-              width={2000}
-              height={1333}
-              sizes="38vw"
-            />
+            <Photo src={photos.monaco} alt="" sizes="38vw" quality={75} />
+            <Photo src={photos.gt3} alt="" sizes="38vw" quality={75} />
+            <Photo src={photos.tecnica} alt="" sizes="38vw" quality={75} />
           </div>
           <nav className="a-nav" aria-label="Primary">
             <div className="links">
@@ -224,7 +207,13 @@ export function Chrome() {
                   onClick={(e) => {
                     if (pathname === "/") {
                       e.preventDefault();
-                      scrollToBoard(pathBoard(item.href));
+                      const name = pathBoard(item.href);
+                      setOpen(false);
+                      setShown(false);
+                      document.body.classList.remove("menu-open");
+                      document.documentElement.classList.remove("menu-open");
+                      document.getElementById("page")?.removeAttribute("inert");
+                      requestAnimationFrame(() => scrollToBoard(name));
                     }
                     setOpen(false);
                     toggle.current?.focus();

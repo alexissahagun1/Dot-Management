@@ -1,8 +1,8 @@
-import Image from "next/image";
+import { Clip } from "@/components/clip";
 import { ServicesPit } from "@/components/services-pit";
+import { videos } from "@/lib/photos";
 
 export function ServicesBoard({
-  priority = false,
   skip = false,
 }: {
   priority?: boolean;
@@ -11,14 +11,11 @@ export function ServicesBoard({
   return (
     <section className="a-services" data-board="services" aria-label="Services">
       <ServicesPit skip={skip} />
-      <Image
+      <Clip
         className="hero"
-        src="/images/nav-gt3.jpg"
-        alt="Lamborghini Huracán GT3"
-        width={1600}
-        height={2400}
-        priority={priority}
-        sizes="(max-width: 760px) 100vw, 50vw"
+        src={videos.replay.src}
+        poster={videos.replay.poster}
+        label={videos.replay.label}
       />
     </section>
   );

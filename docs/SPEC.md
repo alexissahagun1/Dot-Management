@@ -146,8 +146,9 @@ Server Action (not a public JSON API unless needed). Resend.
 | Env | Purpose |
 |---|---|
 | `RESEND_API_KEY` | Send |
-| `CONTACT_TO` | Inbox (`info@dotsportsmanagement.com` default) |
 | `RESEND_FROM` | Verified sender |
+
+Inbox is always `info@dotsportsmanagement.com` (`site.email`).
 
 Validate: name, series, message — all required, trimmed, max 200 / 200 / 4000 chars. Honeypot field. On success: keep the page, show “Briefing sent.” On failure: “Could not send. Email info@dotsportsmanagement.com.”
 
