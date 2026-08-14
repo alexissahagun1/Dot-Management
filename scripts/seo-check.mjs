@@ -169,6 +169,10 @@ function assertJsonLd(homeHtml, routeHtml) {
     assert.equal(service?.["@type"], "Service");
     assert.equal(service?.name, serviceNames[index]);
     assert.equal(referenceId(service.provider), ids.organization);
+    assert.ok(
+      !("areaServed" in service),
+      `${service.name} should not claim unsupported worldwide coverage`,
+    );
   }
 
   for (const [path, html] of Object.entries(routeHtml)) {

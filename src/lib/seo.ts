@@ -91,7 +91,6 @@ const serviceNodes = services.map((service) => ({
   description: service.body,
   serviceType: service.title,
   provider: reference(schemaIds.organization),
-  areaServed: "Worldwide",
 }));
 
 export const homeJsonLd = {
