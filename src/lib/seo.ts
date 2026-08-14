@@ -13,21 +13,25 @@ export const isIndexableDeployment =
 
 export const pageSeo = {
   home: {
-    title: "Motorsport Driver Management | DOT Management",
+    path: "/",
+    title: "DOT Sports Management | Motorsport Driver Management",
     description:
       "DOT Management provides international motorsport driver management, coaching and career development from karting through professional racing.",
   },
   about: {
+    path: "/about",
     title: "About DOT Management & Raul Guzman",
     description:
       "Learn about DOT Management and founder Raul Guzman, combining professional racing experience with strategic driver development and career support.",
   },
   services: {
+    path: "/services",
     title: "Driver Management Services | DOT Management",
     description:
       "Explore DOT Management services: driver management, coaching, performance partners, brand and commercial guidance, and on-track support.",
   },
   contact: {
+    path: "/contact",
     title: "Contact DOT Management | Driver Representation",
     description:
       "Contact DOT Management to discuss driver representation, coaching, career development, commercial guidance or on-track motorsport support.",
@@ -36,18 +40,26 @@ export const pageSeo = {
 
 export type SeoPage = keyof typeof pageSeo;
 
+export const sitemapPages = ["home", "about", "services", "contact"] as const;
+
+export function pageCanonical(page: SeoPage) {
+  const { path } = pageSeo[page];
+  return path === "/" ? CANONICAL_URL : `${SITE_ORIGIN}${path}`;
+}
+
 export function buildPageMetadata(page: SeoPage): Metadata {
   const { title, description } = pageSeo[page];
+  const canonical = pageCanonical(page);
 
   return {
     title: { absolute: title },
     description,
-    alternates: { canonical: CANONICAL_URL },
+    alternates: { canonical },
     openGraph: {
       type: "website",
       locale: "en_GB",
       siteName: site.name,
-      url: CANONICAL_URL,
+      url: canonical,
       title,
       description,
       images: [
@@ -100,7 +112,7 @@ export const homeJsonLd = {
       "@type": "Organization",
       "@id": schemaIds.organization,
       name: site.name,
-      alternateName: "DOT",
+      alternateName: ["DOT", "DOT Sports Management", "dotsportsmanagement.com"],
       url: CANONICAL_URL,
       logo: {
         "@type": "ImageObject",

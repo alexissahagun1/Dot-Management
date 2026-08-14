@@ -9,22 +9,26 @@ const canonical = "https://dotsportsmanagement.com";
 
 const pages = {
   "/": {
-    title: "Motorsport Driver Management | DOT Management",
+    title: "DOT Sports Management | Motorsport Driver Management",
+    canonical: "https://dotsportsmanagement.com",
     description:
       "DOT Management provides international motorsport driver management, coaching and career development from karting through professional racing.",
   },
   "/about": {
     title: "About DOT Management & Raul Guzman",
+    canonical: "https://dotsportsmanagement.com/about",
     description:
       "Learn about DOT Management and founder Raul Guzman, combining professional racing experience with strategic driver development and career support.",
   },
   "/services": {
     title: "Driver Management Services | DOT Management",
+    canonical: "https://dotsportsmanagement.com/services",
     description:
       "Explore DOT Management services: driver management, coaching, performance partners, brand and commercial guidance, and on-track support.",
   },
   "/contact": {
     title: "Contact DOT Management | Driver Representation",
+    canonical: "https://dotsportsmanagement.com/contact",
     description:
       "Contact DOT Management to discuss driver representation, coaching, career development, commercial guidance or on-track motorsport support.",
   },
@@ -143,6 +147,11 @@ function assertJsonLd(homeHtml, routeHtml) {
   const serviceList = nodes.get(ids.services);
 
   assert.equal(organization?.["@type"], "Organization");
+  assert.deepEqual(organization?.alternateName, [
+    "DOT",
+    "DOT Sports Management",
+    "dotsportsmanagement.com",
+  ]);
   assert.equal(website?.["@type"], "WebSite");
   assert.equal(person?.["@type"], "Person");
   assert.equal(contact?.["@type"], "ContactPoint");
@@ -252,8 +261,15 @@ for (const [path, expected] of Object.entries(pages)) {
     expected.description,
     `${path} description mismatch`,
   );
-  assert.equal(canonicalHref(html), canonical, `${path} canonical mismatch`);
-  assert.equal(metaContent(html, "property", "og:url"), canonical);
+  assert.equal(
+    canonicalHref(html),
+    expected.canonical,
+    `${path} canonical mismatch`,
+  );
+  assert.equal(
+    metaContent(html, "property", "og:url"),
+    expected.canonical,
+  );
   assert.equal(metaContent(html, "property", "og:title"), expected.title);
   assert.equal(
     metaContent(html, "property", "og:description"),
@@ -293,7 +309,10 @@ assertRobotsFile(robots);
 const sitemapLocations = [
   ...sitemap.matchAll(/<loc>([\s\S]*?)<\/loc>/gi),
 ].map((match) => decodeHtml(match[1]));
-assert.deepEqual(sitemapLocations, [canonical]);
+assert.deepEqual(
+  sitemapLocations,
+  Object.values(pages).map((page) => page.canonical),
+);
 
 for (const [name, text] of [
   ["llms.txt", llms],

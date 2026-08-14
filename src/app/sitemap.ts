@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
-import { CANONICAL_URL } from "@/lib/seo";
+import { pageCanonical, sitemapPages } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [{ url: CANONICAL_URL }];
+  return sitemapPages.map((page) => ({ url: pageCanonical(page) }));
 }
