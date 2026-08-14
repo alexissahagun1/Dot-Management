@@ -8,6 +8,7 @@ import { Chrome } from "@/components/chrome";
 import { RouteFade } from "@/components/route-fade";
 import { SectionProvider } from "@/components/section-context";
 import { site } from "@/lib/content";
+import { isIndexableDeployment, SITE_ORIGIN } from "@/lib/seo";
 import "./globals.css";
 
 const display = Big_Shoulders({
@@ -30,14 +31,8 @@ const serif = Source_Serif_4({
   variable: "--font-serif",
 });
 
-const metadataBase = new URL(
-  process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "https://dotsportsmanagement.com",
-);
-
 export const metadata: Metadata = {
-  metadataBase,
+  metadataBase: new URL(SITE_ORIGIN),
   title: {
     default: site.name,
     template: `%s — ${site.name}`,
@@ -45,6 +40,9 @@ export const metadata: Metadata = {
   description: site.description,
   applicationName: site.name,
   authors: [{ name: site.name }],
+  robots: isIndexableDeployment
+    ? { index: true, follow: true }
+    : { index: false, follow: false },
   openGraph: {
     type: "website",
     locale: "en",
